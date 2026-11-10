@@ -53,7 +53,7 @@ const starMat = new THREE.ShaderMaterial({
   transparent: true,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
-  uniforms: { uTime: { value: 0 }, uPR: { value: renderer.getPixelRatio() } },
+  uniforms: { uTime: { value: 0 }, uPR: { value: renderer.getPixelRatio() }, uLight: { value: 0 } },
   vertexShader: /* glsl */ `
     attribute float aSize;
     attribute float aPhase;
@@ -72,6 +72,7 @@ const starMat = new THREE.ShaderMaterial({
       gl_Position = projectionMatrix * mv;
     }`,
   fragmentShader: /* glsl */ `
+    uniform float uLight;
     varying vec3 vColor;
     varying float vTwinkle;
     varying float vBig;
@@ -83,7 +84,9 @@ const starMat = new THREE.ShaderMaterial({
       float rays = (max(0.0, 1.0 - abs(uv.x) * 22.0) + max(0.0, 1.0 - abs(uv.y) * 22.0)) * max(0.0, 1.0 - d * 2.0);
       float a = (core + rays * vBig) * vTwinkle;
       if (a < 0.01) discard;
-      gl_FragColor = vec4(vColor * a * 1.4, a);
+      // dark theme: glowing additive points; light theme: deep pink ink dots
+      vec3 ink = mix(vec3(0.78, 0.11, 0.43), vec3(0.48, 0.35, 0.97), step(0.9, vColor.b) * step(vColor.r, 0.7));
+      gl_FragColor = uLight > 0.5 ? vec4(ink, min(a * 0.85, 0.85)) : vec4(vColor * a * 1.4, a);
     }`,
 });
 const stars = new THREE.Points(starGeo, starMat);
@@ -162,6 +165,21 @@ function readScroll() {
 addEventListener("scroll", readScroll, { passive: true });
 addEventListener("ng:start", () => { started = true; });
 addEventListener("ng:turbo", () => { turbo = 6; });
+
+/* ---------- light / dark theme ---------- */
+let light = false;
+function applyTheme(theme) {
+  light = theme === "light";
+  scene.background.setHex(light ? 0xfbf4f8 : 0x09060d);
+  starMat.uniforms.uLight.value = light ? 1 : 0;
+  starMat.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+  starMat.needsUpdate = true;
+  // bloom and filmic grading would wash out / grey a light background
+  bloom.enabled = !light;
+  renderer.toneMapping = light ? THREE.NoToneMapping : THREE.ACESFilmicToneMapping;
+}
+addEventListener("ng:theme", (e) => applyTheme(e.detail));
+applyTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
 
 const raycaster = new THREE.Raycaster();
 addEventListener("click", (e) => {

@@ -225,6 +225,19 @@
     });
   }
 
+  /* ---------- light / dark theme ---------- */
+  const themeBtn = $("#theme-toggle");
+  const root = document.documentElement;
+  function setTheme(theme, save) {
+    if (theme === "light") root.dataset.theme = "light";
+    else delete root.dataset.theme;
+    themeBtn.setAttribute("aria-label", theme === "light" ? "Switch to dark mode" : "Switch to light mode");
+    if (save) { try { localStorage.setItem("ng-theme", theme); } catch {} }
+    window.dispatchEvent(new CustomEvent("ng:theme", { detail: theme }));
+  }
+  themeBtn.addEventListener("click", () => setTheme(root.dataset.theme === "light" ? "dark" : "light", true));
+  setTheme(root.dataset.theme === "light" ? "light" : "dark", false);
+
   /* ---------- copy email ---------- */
   $("#copy-email")?.addEventListener("click", async () => {
     try {
