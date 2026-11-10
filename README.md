@@ -2,6 +2,8 @@
 
 A personal portfolio site with a game-inspired interface and real-time 3D, built with plain HTML, CSS, JavaScript and Three.js.
 
+**Live site:** https://niya0605.github.io/portfolio/
+
 ## Run locally
 
 No build step. Serve the folder with any static server:
