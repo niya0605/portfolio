@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Niya Ganesh · Portfolio</title>
+  <meta name="description" content="Portfolio of Niya Ganesh, frontend developer and AI builder, B.Tech IT at NIT Jalandhar." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- ============ BOOT ============ -->
+  <div id="loader" aria-live="polite">
+    <div class="boot">
+      <p class="boot-brand">NG<span>//</span>SYSTEM</p>
+      <ul id="boot-log" class="boot-log"></ul>
+      <div class="boot-bar"><span id="boot-fill"></span></div>
+      <button id="press-start" class="btn btn-primary press-start" hidden>Enter</button>
+      <p class="boot-hint" id="boot-hint" hidden>Press any key to continue</p>
+    </div>
+  </div>
+
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-ring"></span></div>
+
+  <!-- ============ HUD ============ -->
+  <header class="hud">
+    <a href="#home" class="hud-logo"><span class="logo-mark">NG</span><span class="logo-text">Niya Ganesh</span></a>
+    <nav class="hud-nav" id="hud-nav">
+      <a href="#about"><span>01</span>Profile</a>
+      <a href="#quests"><span>02</span>Experience</a>
+      <a href="#levels"><span>03</span>Projects</a>
+      <a href="#skills"><span>04</span>Loadout</a>
+      <a href="#contact"><span>05</span>Contact</a>
+    </nav>
+    <div class="hud-stats">
+      <div class="hud-score"><span class="label">Score</span><span id="score">000000</span></div>
+      <div class="hud-xp" title="Scroll progress">
+        <span class="label">Lvl <b id="level">1</b></span>
+        <div class="xp-bar"><span id="xp-fill"></span></div>
+      </div>
+    </div>
+    <button class="hud-menu" id="hud-menu" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section id="home" class="hero" data-achievement="Session started">
+      <div class="hero-text">
+        <p class="eyebrow"><span class="dot"></span> Player 01 · Online</p>
+        <h1 class="hero-name">Niya<br />Ganesh</h1>
+        <p class="hero-role"><span class="prompt">&gt;</span> <span id="typed"></span><span class="caret"></span></p>
+        <p class="hero-copy">
+          I build web apps and AI tools, mostly in React and Next.js with FastAPI behind them.
+          IT undergrad at NIT Jalandhar, with three production websites shipped during my internship.
+        </p>
+        <div class="hero-cta">
+          <a href="#levels" class="btn btn-primary">View projects</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+        <dl class="readouts">
+          <div><dt>Class</dt><dd>Full-stack · AI</dd></div>
+          <div><dt>Guild</dt><dd>NIT Jalandhar</dd></div>
+          <div><dt>Status</dt><dd class="ok">Open to work</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero-3d">
+        <canvas id="console" aria-label="3D pink handheld console showing Niya's player card"></canvas>
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <p class="console-hint">Drag to rotate · Tap the screen</p>
+      </div>
+    </section>
+
+    <!-- ============ 01 PROFILE ============ -->
+    <section id="about" class="section" data-achievement="Profile viewed">
+      <header class="sec-head reveal">
+        <p class="sec-tag">01 // Profile</p>
+        <h2>Player profile</h2>
+      </header>
+
+      <div class="profile-grid">
+        <article class="panel reveal">
+          <p class="panel-tag">About</p>
+          <p class="lead">I like problems where people actually use the frontend and the backend does real work behind it.</p>
+          <p>Lately that has meant AI tools: a PDF reader that quizzes you on what you've uploaded, a market dashboard that turns live data into plain-language summaries, and an MRI classifier. I care about the less visible parts too: accessibility, usability, tests and pipelines that recover when something fails.</p>
+        </article>
+
+        <article class="panel reveal">
+          <p class="panel-tag">Training log</p>
+          <ul class="timeline">
+            <li>
+              <span class="tl-date">2024 – 2028</span>
+              <span class="tl-title">B.Tech, Information Technology</span>
+              <span class="tl-sub">NIT Jalandhar</span>
+            </li>
+            <li>
+              <span class="tl-date">2024</span>
+              <span class="tl-title">Higher Secondary · 85%</span>
+              <span class="tl-sub">The Indian School, Isa Town, Bahrain</span>
+            </li>
+          </ul>
+        </article>
+
+        <div class="stats reveal">
+          <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-label">Live production sites</span></div>
+          <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-label">Projects shipped</span></div>
+          <div class="stat"><span class="stat-num" data-count="8">0</span><span class="stat-label">Languages</span></div>
+          <div class="stat"><span class="stat-num" data-count="5">0</span><span class="stat-label">Databases</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 EXPERIENCE ============ -->
+    <section id="quests" class="section" data-achievement="Mission log opened">
+      <header class="sec-head reveal">
+        <p class="sec-tag">02 // Experience</p>
+        <h2>Mission log</h2>
+      </header>
+
+      <article class="panel mission reveal">
+        <div class="mission-top">
+          <div>
+            <p class="mission-status">Mission complete</p>
+            <h3>Frontend Developer Intern</h3>
+            <p class="mission-org">Atyaf E Solutions · Bahrain</p>
+          </div>
+          <p class="mission-date">Jun 10 – Jul 10, 2026</p>
+        </div>
+        <div class="mission-body">
+          <ul class="ticks">
+            <li>Worked on client website builds in a .NET-based builder CMS and shipped three live production sites.</li>
+            <li>Built and customised frontend pages for a government website, turning design and content requirements into a live site.</li>
+            <li>Worked with a mentor to design and build pages for two more client websites, on page layout and frontend implementation.</li>
+          </ul>
+          <div class="mission-rewards">
+            <p class="panel-tag">Rewards</p>
+            <p class="reward"><span>03</span> sites live in production</p>
+            <div class="chips"><span>.NET CMS</span><span>Frontend</span><span>Page layout</span><span>Client work</span></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ 03 PROJECTS ============ -->
+    <section id="levels" class="section" data-achievement="Level select unlocked">
+      <header class="sec-head reveal">
+        <p class="sec-tag">03 // Projects</p>
+        <h2>Select a level</h2>
+      </header>
+
+      <div class="levels">
+        <article class="level tilt reveal">
+          <div class="level-top">
+            <span class="level-no">LVL 01</span>
+            <span class="level-genre">AI · Full-stack</span>
+          </div>
+          <h3>AI-Based PDF Reader</h3>
+          <p>A PDF reader that works like a personal tutor: ask questions about what you've uploaded, get auto-generated quizzes and on-demand explanations.</p>
+          <ul class="ticks">
+            <li>FastAPI with SQLAlchemy, Alembic migrations and Pydantic schemas</li>
+            <li>PostgreSQL for persistence, Redis for caching and queues</li>
+            <li>WebSockets for real-time chat; Dockerised, tested with Pytest, linted with Ruff</li>
+          </ul>
+          <div class="chips"><span>Next.js</span><span>React</span><span>TypeScript</span><span>FastAPI</span><span>PostgreSQL</span><span>Redis</span></div>
+          <div class="level-actions">
+            <a class="level-play" href="https://github.com/niya0605/Nexus-ai" target="_blank" rel="noopener" aria-label="Open AI-Based PDF Reader code">View code <span>→</span></a>
+          </div>
+        </article>
+
+        <article class="level tilt reveal">
+          <div class="level-top">
+            <span class="level-no">LVL 02</span>
+            <span class="level-genre">Real-time · AI</span>
+          </div>
+          <h3>Real-Time Market Analytics &amp; AI Insights</h3>
+          <p>A stock market platform that ingests live market data over REST APIs and turns it into AI-generated insights and trend summaries.</p>
+          <ul class="ticks">
+            <li>Inngest workflows for scheduled polling, event-driven refresh and retries</li>
+            <li>Secure authentication with Better Auth</li>
+            <li>AI SDK for natural-language insights on a responsive Tailwind frontend</li>
+          </ul>
+          <div class="chips"><span>Next.js</span><span>TypeScript</span><span>Inngest</span><span>Better Auth</span><span>AI SDK</span><span>Tailwind</span></div>
+          <div class="level-actions">
+            <a class="level-play" href="https://pulse-tau-inky.vercel.app" target="_blank" rel="noopener" aria-label="Open Real-Time Market Analytics live site">Play live <span>→</span></a>
+            <a class="level-code" href="https://github.com/niya0605/Pulse" target="_blank" rel="noopener">Code</a>
+          </div>
+        </article>
+
+        <article class="level tilt reveal">
+          <div class="level-top">
+            <span class="level-no">LVL 03</span>
+            <span class="level-genre">Deep learning</span>
+          </div>
+          <h3>Brain Tumor Detection</h3>
+          <p>A deep learning pipeline that classifies brain MRI scans for tumour detection, using a CNN with transfer learning.</p>
+          <ul class="ticks">
+            <li>CNN with transfer learning in TensorFlow / Keras</li>
+            <li>Preprocessing and augmentation with NumPy and Pillow</li>
+            <li>Evaluated with Scikit-learn metrics, plotted in Matplotlib</li>
+          </ul>
+          <div class="chips"><span>Python</span><span>TensorFlow</span><span>Keras</span><span>CNN</span><span>Transfer Learning</span></div>
+          <div class="level-actions">
+            <a class="level-play" href="https://neuroscan-2ofg.onrender.com" target="_blank" rel="noopener" aria-label="Open Brain Tumor Detection live site">Play live <span>→</span></a>
+            <a class="level-code" href="https://github.com/niya0605/NeuroScan" target="_blank" rel="noopener">Code</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 04 SKILLS ============ -->
+    <section id="skills" class="section" data-achievement="Loadout inspected">
+      <header class="sec-head reveal">
+        <p class="sec-tag">04 // Skills</p>
+        <h2>Loadout</h2>
+      </header>
+
+      <div class="loadout">
+        <div class="slot reveal"><p class="slot-name"><span>A</span>Languages</p><div class="chips"><span>C</span><span>C++</span><span>Java</span><span>JavaScript (ES6+)</span><span>TypeScript</span><span>Python</span><span>HTML</span><span>CSS</span></div></div>
+        <div class="slot reveal"><p class="slot-name"><span>B</span>Development</p><div class="chips"><span>React.js</span><span>Next.js</span><span>React Native</span><span>Node.js</span><span>Express.js</span><span>FastAPI</span><span>REST APIs</span><span>WebSockets</span><span>Responsive Design</span></div></div>
+        <div class="slot reveal"><p class="slot-name"><span>C</span>Databases</p><div class="chips"><span>MySQL</span><span>MongoDB</span><span>PostgreSQL</span><span>SQL Server</span><span>Redis</span></div></div>
+        <div class="slot reveal"><p class="slot-name"><span>D</span>AI / ML</p><div class="chips"><span>TensorFlow</span><span>Keras</span><span>CNNs</span><span>Transfer Learning</span><span>Scikit-learn</span><span>AI SDK</span><span>LLM Workflows</span></div></div>
+        <div class="slot reveal"><p class="slot-name"><span>E</span>Tools</p><div class="chips"><span>Git</span><span>GitHub</span><span>Docker</span><span>Postman</span><span>VS Code</span><span>Pytest</span><span>Ruff</span><span>Alembic</span><span>Inngest</span><span>Better Auth</span><span>MS Office</span></div></div>
+        <div class="slot reveal"><p class="slot-name"><span>F</span>Core</p><div class="chips"><span>OOP</span><span>Data Structures</span><span>Algorithms</span><span>DBMS</span><span>OS</span><span>Computer Networks</span><span>Accessibility</span><span>Usability</span></div></div>
+        <div class="slot slot-wide reveal"><p class="slot-name"><span>G</span>Team</p><div class="chips"><span>Project Management</span><span>Teamwork</span><span>Communication</span><span>Collaboration</span><span>Presentations</span></div></div>
+      </div>
+    </section>
+
+    <!-- ============ 05 CONTACT ============ -->
+    <section id="contact" class="section contact" data-achievement="Reached the final screen">
+      <div class="panel contact-panel reveal">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <p class="sec-tag">05 // Contact</p>
+        <h2 class="contact-title">Continue?</h2>
+        <p class="countdown" id="countdown">9</p>
+        <p class="contact-copy">I'm looking for internships and collaborations in frontend, full-stack or AI work. The quickest way to reach me is email.</p>
+        <div class="contact-links">
+          <a class="btn btn-primary" href="mailto:niyaganesh06@gmail.com">niyaganesh06@gmail.com</a>
+          <button type="button" class="btn btn-ghost" id="copy-email">Copy email</button>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/niya-ganesh-92089a394/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://github.com/niya0605" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <span>© 2026 Niya Ganesh</span>
+        <span>Built with Three.js</span>
+        <span>Hi-score <b id="hiscore">000000</b></span>
+      </footer>
+    </section>
+  </main>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="ui.js" defer></script>
+  <script type="module" src="scene.js"></script>
+  <script type="module" src="console.js"></script>
+</body>
+</html>
